@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         EditText input = new EditText(this);
         input.setHint("NOME");
-        linearLayout.addV iew(input);
+        linearLayout.addView(input);
 
         EditText input2 = new EditText(this);
         input2.setHint("NOME");
