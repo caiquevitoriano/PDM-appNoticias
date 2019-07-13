@@ -2,10 +2,13 @@ package com.example.appnoticias;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.text.InputType;
+import android.util.Log;
+import android.view.View;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.appnoticias.Componentes.Botao;
+import com.example.appnoticias.Componentes.Input;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,17 +23,18 @@ public class MainActivity extends AppCompatActivity {
 
         linearLayout.setBackgroundColor(Color.WHITE);
 
-        TextView label = new TextView(this);
-        label.setText("TESTE");
-        linearLayout.addView(label);
+        Input input = new Input(this,"Nome",InputType.TYPE_CLASS_TEXT, 100);
+        linearLayout.addView(input);
 
-        EditText input = new EditText(this);
-        input.setHint("NOME");
-        linearLayout.addV iew(input);
+        final Botao botaoCadastro = new Botao(this, "Cadastrar");
+        botaoCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this,"Usuario Cadastrado!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        linearLayout.addView(botaoCadastro);
 
-        EditText input2 = new EditText(this);
-        input2.setHint("NOME");
-        linearLayout.addView(input2);
 
     }
 }
