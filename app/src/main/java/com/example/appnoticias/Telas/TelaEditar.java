@@ -69,21 +69,16 @@ public class TelaEditar extends AppCompatActivity {
         Input email = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
         layoutInputs.addView(email);
 
-        Input senha = new Input(this,"Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
-        layoutInputs.addView(senha);
+        Input senhaAtual = new Input(this,"Senha atual", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        layoutInputs.addView(senhaAtual);
+
+        Input senhaNova = new Input(this,"Nova senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        layoutInputs.addView(senhaNova);
+
 
 
 
 //        SETANDO BOTOES
-
-        Botao botaoCancelar = new Botao(this, "Cancelar");
-        botaoCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("RAULT","FOI CANCELADO");
-            }
-        });
-        layoutBotoes.addView(botaoCancelar);
 
         Botao botaoCadastro = new Botao(this, "Editar");
         botaoCadastro.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +88,16 @@ public class TelaEditar extends AppCompatActivity {
             }
         });
         layoutBotoes.addView(botaoCadastro);
+
+
+        Botao botaoCancelar = new Botao(this, "Cancelar");
+        botaoCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("RAULT","FOI CANCELADO");
+            }
+        });
+        layoutBotoes.addView(botaoCancelar);
 
 
 
