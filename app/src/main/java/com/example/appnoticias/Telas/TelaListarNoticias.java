@@ -45,6 +45,9 @@ public class TelaListarNoticias extends Activity {
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
         setContentView(linearLayout);
 
+//        NOTICIAS
+
+        setTitle("Noticias");
 
         //      LISTA DE NOTICIAS
         List<String> lista =  new ArrayList<>();
@@ -63,6 +66,8 @@ public class TelaListarNoticias extends Activity {
 
         linearLayout.addView(titulo);
         linearLayout.addView(layoutLista);
+
+            
 
 
     }

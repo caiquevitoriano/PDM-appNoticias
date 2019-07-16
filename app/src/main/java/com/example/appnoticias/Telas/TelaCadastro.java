@@ -53,6 +53,10 @@ public class TelaCadastro extends AppCompatActivity {
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
         setContentView(linearLayout);
 
+//        MUDANDO TITULO DA TELA
+
+        setTitle("Cadastro de Usuário");
+
 
 //      INPUTS DA PAGINA
 

@@ -8,6 +8,7 @@ import androidx.appcompat.view.menu.MenuBuilder;
 import com.example.appnoticias.R;
 
 public class TelaMenu extends AppCompatActivity {
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item1 = menu.add ("Dados");
         MenuItem item2 = menu.add ("Sair");

@@ -1,5 +1,6 @@
 package com.example.appnoticias.Telas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -49,6 +50,9 @@ public class TelaLogin extends AppCompatActivity {
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
         setContentView(linearLayout);
 
+//        MUDANDO TITULO DA PAGINA
+        setTitle("Login");
+
 
 //      INPUTS DA PAGINA
 
@@ -63,19 +67,21 @@ public class TelaLogin extends AppCompatActivity {
 //        SETANDO BOTOES
 
         Botao botaoCancelar = new Botao(this, "Criar Contar");
-        botaoCancelar.setOnClickListener(new View.OnClickListener() {
+        botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("RAULT","FOI CANCELADO");
+                Log.d("RAULT","FOI PRO CADASTRO");
+                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaCadastro.class);
+                startActivity(mudarTelaCadastro);
             }
         });
         layoutBotoes.addView(botaoCancelar);
 
         Botao botaoCadastro = new Botao(this, "Entrar");
-        botaoCadastro.setOnClickListener(new View.OnClickListener() {
+        botaoCadastro.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("RAULT","FOI CADASTRADO");
+                Log.d("RAULT","FOI AUTENTICADO");
             }
         });
         layoutBotoes.addView(botaoCadastro);

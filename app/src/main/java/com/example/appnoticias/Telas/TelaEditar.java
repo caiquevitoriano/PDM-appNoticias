@@ -60,6 +60,9 @@ public class TelaEditar extends AppCompatActivity {
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
         setContentView(linearLayout);
 
+//        MUDANDO TITULO DA PAGINA
+
+        setTitle("Editar Informações");
 
 //      INPUTS DA PAGINA
 

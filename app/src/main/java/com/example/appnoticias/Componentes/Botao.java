@@ -1,7 +1,6 @@
 package com.example.appnoticias.Componentes;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -40,5 +39,7 @@ public class Botao extends LinearLayout {
     public void setOnClickAction(OnClickListener onClickListener){
         botao.setOnClickListener(onClickListener);
     }
+
+
 
 }
