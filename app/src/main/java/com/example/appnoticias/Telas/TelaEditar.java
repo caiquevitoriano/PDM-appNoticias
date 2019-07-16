@@ -16,12 +16,15 @@ public class TelaEditar extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item1 = menu.add ("Dados");
+        MenuItem item1 = menu.add ("Listar Noticias");
         MenuItem item2 = menu.add ("Sair");
 
         item1.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
             @Override
             public boolean onMenuItemClick (MenuItem item){
+                Log.d("RAULT","Listar Noticias");
+                Intent listarNoticias = new Intent(getApplicationContext(), TelaLogin.class);
+                startActivity((listarNoticias));
                 return true;
             }
         });
@@ -29,6 +32,9 @@ public class TelaEditar extends AppCompatActivity {
         item2.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
             @Override
             public boolean onMenuItemClick (MenuItem item){
+                Log.d("RAULT","Voltar pra login");
+                Intent Sair = new Intent(getApplicationContext(), TelaLogin.class);
+                startActivity((Sair));
                 return true;
             }
         });
