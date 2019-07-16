@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
+import android.view.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,10 +16,25 @@ public class TelaEditar extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.game_menu, menu);
+        MenuItem item1 = menu.add ("Dados");
+        MenuItem item2 = menu.add ("Sair");
+
+        item1.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick (MenuItem item){
+                return true;
+            }
+        });
+
+        item2.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick (MenuItem item){
+                return true;
+            }
+        });
         return true;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
