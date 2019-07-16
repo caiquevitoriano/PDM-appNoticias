@@ -1,5 +1,6 @@
 package com.example.appnoticias.Telas;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class TelaEditar extends AppCompatActivity {
 
         LinearLayout layoutBotoes= new LinearLayout(this);
         layoutBotoes.setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        layoutBotoes.setOrientation(LinearLayout.HORIZONTAL);
+        layoutBotoes.setOrientation(LinearLayout.VERTICAL);
         layoutBotoes.setPadding(9,9,9,9);
         layoutBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -75,7 +76,7 @@ public class TelaEditar extends AppCompatActivity {
         Input senhaAtual = new Input(this,"Senha atual", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
         layoutInputs.addView(senhaAtual);
 
-        Input senhaNova = new Input(this,"Nova senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        Input senhaNova = new Input(this,"Confirme a Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
         layoutInputs.addView(senhaNova);
 
 
@@ -94,10 +95,12 @@ public class TelaEditar extends AppCompatActivity {
 
 
         Botao botaoCancelar = new Botao(this, "Cancelar");
-        botaoCancelar.setOnClickListener(new View.OnClickListener() {
+        botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CANCELADO");
+                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaListarNoticias.class);
+                startActivity(mudarTelaCadastro);
             }
         });
         layoutBotoes.addView(botaoCancelar);
