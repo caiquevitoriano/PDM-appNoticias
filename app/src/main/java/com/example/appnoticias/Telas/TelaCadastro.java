@@ -1,5 +1,6 @@
 package com.example.appnoticias.Telas;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.text.InputType;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class TelaCadastro extends AppCompatActivity {
 
         LinearLayout layoutBotoes= new LinearLayout(this);
         layoutBotoes.setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        layoutBotoes.setOrientation(LinearLayout.HORIZONTAL);
+        layoutBotoes.setOrientation(LinearLayout.VERTICAL);
         layoutBotoes.setPadding(9,9,9,9);
         layoutBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -73,15 +74,6 @@ public class TelaCadastro extends AppCompatActivity {
 
 //        SETANDO BOTOES
 
-        Botao botaoCancelar = new Botao(this, "Cancelar");
-        botaoCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("RAULT","FOI CANCELADO");
-            }
-        });
-        layoutBotoes.addView(botaoCancelar);
-
         Botao botaoCadastro = new Botao(this, "Cadastrar");
         botaoCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +82,17 @@ public class TelaCadastro extends AppCompatActivity {
             }
         });
         layoutBotoes.addView(botaoCadastro);
+
+        Botao botaoCancelar = new Botao(this, "Cancelar");
+        botaoCancelar.setOnClickAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("RAULT","FOI CANCELADO");
+                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaListarNoticias.class);
+                startActivity(mudarTelaCadastro);
+            }
+        });
+        layoutBotoes.addView(botaoCancelar);
 
 
 
