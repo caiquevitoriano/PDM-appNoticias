@@ -1,8 +1,11 @@
 package com.example.appnoticias.Telas;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -13,7 +16,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelaListarNoticias extends Activity {
+public class TelaListar extends AppCompatActivity {
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item1 = menu.add ("Dados");
+        MenuItem item2 = menu.add ("Sair");
+
+        item1.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick (MenuItem item){
+                Log.d("RAULT","Editar dados");
+                Intent Editar = new Intent(getApplicationContext(), TelaEditar.class);
+                startActivity((Editar));
+                return true;
+            }
+        });
+
+        item2.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick (MenuItem item){
+                Log.d("RAULT","Voltar pra login");
+                Intent Sair = new Intent(getApplicationContext(), TelaLogin.class);
+                startActivity((Sair));
+                return true;
+            }
+        });
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
