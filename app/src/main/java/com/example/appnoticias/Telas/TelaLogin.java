@@ -30,7 +30,7 @@ public class TelaLogin extends AppCompatActivity {
 
         LinearLayout layoutBotoes= new LinearLayout(this);
         layoutBotoes.setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        layoutBotoes.setOrientation(LinearLayout.HORIZONTAL);
+        layoutBotoes.setOrientation(LinearLayout.VERTICAL);
         layoutBotoes.setPadding(9,9,9,9);
         layoutBotoes.setGravity(Gravity.CENTER_HORIZONTAL);
 
@@ -63,11 +63,19 @@ public class TelaLogin extends AppCompatActivity {
         layoutInputs.addView(senha);
 
 
-
 //        SETANDO BOTOES
 
-        Botao botaoCancelar = new Botao(this, "Criar Contar");
-        botaoCancelar.setOnClickAction(new View.OnClickListener() {
+        Botao botaoEntrar = new Botao(this, "Entrar");
+        botaoEntrar.setOnClickAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("RAULT","FOI AUTENTICADO");
+            }
+        });
+        layoutBotoes.addView(botaoEntrar);
+
+        Botao botaoCriarConta = new Botao(this, "Criar Contar");
+        botaoCriarConta.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI PRO CADASTRO");
@@ -75,16 +83,7 @@ public class TelaLogin extends AppCompatActivity {
                 startActivity(mudarTelaCadastro);
             }
         });
-        layoutBotoes.addView(botaoCancelar);
-
-        Botao botaoCadastro = new Botao(this, "Entrar");
-        botaoCadastro.setOnClickAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("RAULT","FOI AUTENTICADO");
-            }
-        });
-        layoutBotoes.addView(botaoCadastro);
+        layoutBotoes.addView(botaoCriarConta);
 
 
 

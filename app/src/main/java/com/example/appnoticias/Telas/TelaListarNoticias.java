@@ -67,7 +67,7 @@ public class TelaListarNoticias extends Activity {
         linearLayout.addView(titulo);
         linearLayout.addView(layoutLista);
 
-            
+
 
 
     }

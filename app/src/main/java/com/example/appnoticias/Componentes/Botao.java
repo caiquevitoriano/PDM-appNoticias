@@ -26,9 +26,10 @@ public class Botao extends LinearLayout {
     }
 
     private void init() {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams layoutParams = new LayoutParams(500, LayoutParams.MATCH_PARENT);
         setLayoutParams(layoutParams);
         setOrientation(VERTICAL);
+
 
         botao = new Button(getContext());
         botao.setText(label);
