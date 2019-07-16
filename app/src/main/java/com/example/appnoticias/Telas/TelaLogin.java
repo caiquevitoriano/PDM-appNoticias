@@ -70,6 +70,8 @@ public class TelaLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI AUTENTICADO");
+                Intent mudaIntent = new Intent(getApplicationContext(), TelaListar.class);
+                startActivity((mudaIntent));
             }
         });
         layoutBotoes.addView(botaoEntrar);

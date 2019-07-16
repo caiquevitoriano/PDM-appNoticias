@@ -88,7 +88,7 @@ public class TelaCadastro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CANCELADO");
-                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaListarNoticias.class);
+                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaListar.class);
                 startActivity(mudarTelaCadastro);
             }
         });
