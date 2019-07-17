@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,12 +51,20 @@ public class TelaLogin extends AppCompatActivity {
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setPadding(9,9,9,9);
-        linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+        linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
         setContentView(linearLayout);
 
         // LAYOUT TEXTVIEW
 
+        LinearLayout imagemL= new LinearLayout(this);
+        imagemL.setLayoutParams(new LinearLayout.LayoutParams( 300,400));
+        imagemL.setOrientation(LinearLayout.VERTICAL);
+        imagemL.setPadding(0,10,0,0);
+        imagemL.setGravity(Gravity.CENTER_HORIZONTAL);
 
+        ImageView imagem = new ImageView(this);
+        imagem.setImageResource(R.drawable.logo);
+        imagemL.addView(imagem);
 
 
 
@@ -102,7 +111,7 @@ public class TelaLogin extends AppCompatActivity {
 
 //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
 
-        linearLayout.addView(titulo);
+        linearLayout.addView(imagemL);
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
 
