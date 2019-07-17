@@ -1,23 +1,25 @@
 package com.example.appnoticias.Telas;
 
 import android.content.Intent;
-import android.graphics.Point;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
-import com.example.appnoticias.MainActivity;
+
 
 public class TelaCadastro extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +86,9 @@ public class TelaCadastro extends AppCompatActivity {
         layoutBotoes.addView(botaoCadastro);
 
         Botao botaoCancelar = new Botao(this, "Cancelar");
+        botaoCadastro.setStateListAnimator(null);
+        botaoCadastro.setElevation(200);
+        botaoCadastro.setTranslationZ(200);
         botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +99,17 @@ public class TelaCadastro extends AppCompatActivity {
         });
         layoutBotoes.addView(botaoCancelar);
 
+//        CRIANDO GRADIENT
+
+//        int[] colors = new int[2];
+//        colors[0] = Color.rgb(255,0,0);
+//        colors[1] = Color.rgb(255,255,255);
+//
+//
+//        GradientDrawable gd = new GradientDrawable(
+//                GradientDrawable.Orientation.BOTTOM_TOP, colors);
+//        gd.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+//        linearLayout.setBackground(gd);
 
 
 //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
