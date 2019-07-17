@@ -99,18 +99,6 @@ public class TelaCadastro extends AppCompatActivity {
         });
         layoutBotoes.addView(botaoCancelar);
 
-//        CRIANDO GRADIENT
-
-//        int[] colors = new int[2];
-//        colors[0] = Color.rgb(255,0,0);
-//        colors[1] = Color.rgb(255,255,255);
-//
-//
-//        GradientDrawable gd = new GradientDrawable(
-//                GradientDrawable.Orientation.BOTTOM_TOP, colors);
-//        gd.setGradientType(GradientDrawable.LINEAR_GRADIENT);
-//        linearLayout.setBackground(gd);
-
 
 //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
 
