@@ -1,7 +1,9 @@
 package com.example.appnoticias.Telas;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.R;
 
 public class TelaLogin extends AppCompatActivity {
 
@@ -49,6 +52,12 @@ public class TelaLogin extends AppCompatActivity {
         linearLayout.setPadding(9,9,9,9);
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
         setContentView(linearLayout);
+
+        // LAYOUT TEXTVIEW
+
+
+
+
 
 //        MUDANDO TITULO DA PAGINA
         setTitle("Login");
@@ -89,11 +98,14 @@ public class TelaLogin extends AppCompatActivity {
 
 
 
+
+
 //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
 
         linearLayout.addView(titulo);
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
+
 
 
 
