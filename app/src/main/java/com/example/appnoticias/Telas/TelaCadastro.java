@@ -5,20 +5,31 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Model.Usuario;
 
 
 public class TelaCadastro extends AppCompatActivity {
-
+    private String edtNome;
+    private String edtEmail;
+    private String edtSenha;
+    private Input nome;
+    private Input email;
+    private Input senha;
+    private Usuario usuario;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +74,15 @@ public class TelaCadastro extends AppCompatActivity {
 
 //      INPUTS DA PAGINA
 
-        Input nome = new Input(this,"Nome", InputType.TYPE_CLASS_TEXT, 500);
+        nome = new Input(this,"Nome", InputType.TYPE_CLASS_TEXT, 500);
         layoutInputs.addView(nome);
 
-        Input email = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
+
+        email = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
         layoutInputs.addView(email);
 
-        Input senha = new Input(this,"Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+
+        senha = new Input(this,"Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
         layoutInputs.addView(senha);
 
 
@@ -77,10 +90,11 @@ public class TelaCadastro extends AppCompatActivity {
 //        SETANDO BOTOES
 
         Botao botaoCadastro = new Botao(this, "Cadastrar");
-        botaoCadastro.setOnClickListener(new View.OnClickListener() {
+        botaoCadastro.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CADASTRADO");
+                validaCampos();
             }
         });
         layoutBotoes.addView(botaoCadastro);
@@ -107,6 +121,44 @@ public class TelaCadastro extends AppCompatActivity {
         linearLayout.addView(layoutBotoes);
 
 
-
     }
+
+    public boolean validaCampos(){
+        boolean res = false;
+        edtNome = nome.getValue();
+        edtEmail = email.getValue();
+        edtSenha = senha.getValue();
+
+        if (res = isCampoVazio(edtNome)){
+            nome.requestFocus();
+        }else if (res = isCampoVazio(edtEmail)){
+            email.requestFocus();
+        }else if (res = !isEmailValido(edtEmail)){
+            email.requestFocus();
+        } else if (res = isCampoVazio(edtSenha)||(edtSenha.length()<4)){
+            senha.requestFocus();
+        }
+        if (res) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Aviso");
+            builder.setMessage("Há campos inválidos ou em branco!");
+            builder.setNeutralButton("OK", null);
+            builder.show();
+        }
+
+        return res;
+    }
+
+
+    public boolean isCampoVazio(String valor) {
+
+        return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
+    }
+
+    public boolean isEmailValido(String email) {
+        return (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+
+
 }
