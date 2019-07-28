@@ -1,29 +1,30 @@
 package com.example.appnoticias.Telas;
 
-import android.animation.Animator;
-import android.animation.LayoutTransition;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.transition.Transition;
-import android.transition.TransitionValues;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.LayoutAnimationController;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import com.example.appnoticias.Model.Noticia;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelaListar extends AppCompatActivity {
+public class TelaNoticia extends AppCompatActivity {
+    private Noticia noticia = new Noticia("Noticia", "subtitulo", "Lorem ipsum dolor sit " +
+            "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." +
+            " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo" +
+            " consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat" +
+            " nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt" +
+            " mollit anim id est laborum");
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item1 = menu.add ("Dados");
@@ -59,27 +60,25 @@ public class TelaListar extends AppCompatActivity {
 
         TextView titulo = new TextView(this);
         titulo.setPadding(0,80,0,0);
-        titulo.setText("NOTÍCIAS\n\n");
+        titulo.setText(noticia.getTitulo() + "");
         titulo.setTextSize(25f);
         titulo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
+        //        SUBTITULO DA NOTICIA
 
-        //      LAYOUT LISTA
+        TextView subtitulo = new TextView(this);
+        subtitulo.setPadding(0,80,0,0);
+        subtitulo.setText(noticia.getSubtitulo() + "");
+        subtitulo.setTextSize(25f);
+        subtitulo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
-        LinearLayout layoutLista = new LinearLayout(this);
-        layoutLista.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        layoutLista.setOrientation(LinearLayout.HORIZONTAL);
-        layoutLista.setPadding(9,9,9,9);
-        layoutLista.setGravity(Gravity.CENTER_HORIZONTAL);
+//        CONTEUDO DA NOTICIA
 
-
-        //      LAYOUT CARDVIEW
-
-        LinearLayout layoutCardView = new LinearLayout(this);
-        layoutCardView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        layoutCardView.setOrientation(LinearLayout.HORIZONTAL);
-        layoutCardView.setPadding(9,9,9,9);
-        layoutCardView.setGravity(Gravity.CENTER_HORIZONTAL);
+        TextView conteudo = new TextView(this);
+        conteudo.setPadding(0,80,0,0);
+        conteudo.setText(noticia.getConteudo() + "");
+        conteudo.setTextSize(25f);
+        conteudo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
 
         //        LAYOUT DOS LAYOUTS
@@ -92,35 +91,13 @@ public class TelaListar extends AppCompatActivity {
         setContentView(linearLayout);
 
 
-        //      CARDVIEW
-
-        CardView cardView = new CardView(this);
-        cardView.setCardBackgroundColor(1);
-        cardView.addView(layoutLista);
-
-
-//        NOTICIAS
-
-        setTitle("Noticias");
-
-        //      LISTA DE NOTICIAS
-        List<String> lista =  new ArrayList<>();
-        lista.add("noticia1");
-        lista.add("noticia2");
-        lista.add("noticia3");
-        lista.add("noticia4");
-        ListView listNoticia =  new ListView(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, lista
-        );
-        listNoticia.setAdapter(adapter);
-        layoutLista.addView(listNoticia);
-
-
         //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
 
         linearLayout.addView(titulo);
-        linearLayout.addView(cardView);
+        linearLayout.addView(subtitulo);
+        linearLayout.addView(conteudo);
+
+
 
 
     }
