@@ -1,6 +1,7 @@
 package com.example.appnoticias.Model;
 
 public class Usuario {
+    private int codigo;
     private String nome;
     private String email;
     private String senha;
@@ -18,6 +19,22 @@ public class Usuario {
 
     public Usuario() {
 
+    }
+
+    public Usuario(int codigo, String nome, String email, String senha) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
+
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -47,7 +64,8 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "nome='" + nome + '\'' +
+                "codigo=" + codigo +
+                ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
