@@ -1,6 +1,8 @@
 package com.example.appnoticias.Telas;
 
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Database.DadosOpenHelper;
 import com.example.appnoticias.Model.Usuario;
 
 
@@ -30,6 +33,10 @@ public class TelaCadastro extends AppCompatActivity {
     private Input email;
     private Input senha;
     private Usuario usuario;
+    private SQLiteDatabase conexao;
+    private DadosOpenHelper dadosOpenHelper;
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +127,11 @@ public class TelaCadastro extends AppCompatActivity {
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
 
+        criarConexao();
+
 
     }
+
 
     public boolean validaCampos(){
         boolean res = false;
@@ -159,6 +169,24 @@ public class TelaCadastro extends AppCompatActivity {
         return (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
+    private void criarConexao(){
+        try {
+            dadosOpenHelper = new DadosOpenHelper(this);
+            conexao = dadosOpenHelper.getWritableDatabase();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Aviso");
+            builder.setMessage("Conexão criada com sucesso");
+            builder.setNeutralButton("OK", null);
+            builder.show();
 
+        }catch (SQLException ex){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("Erro");
+            dlg.setMessage(ex.getMessage());
+            dlg.setNeutralButton("OK", null);
+            dlg.show();
+
+        }
+    }
 
 }
