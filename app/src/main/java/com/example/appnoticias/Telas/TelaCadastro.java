@@ -3,8 +3,6 @@ package com.example.appnoticias.Telas;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -14,7 +12,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +19,7 @@ import android.os.Bundle;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
 import com.example.appnoticias.Database.DadosOpenHelper;
+import com.example.appnoticias.Database.UsuarioDao;
 import com.example.appnoticias.Model.Usuario;
 
 
@@ -32,15 +30,13 @@ public class TelaCadastro extends AppCompatActivity {
     private Input nome;
     private Input email;
     private Input senha;
-    private Usuario usuario;
-    private SQLiteDatabase conexao;
-    private DadosOpenHelper dadosOpenHelper;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        UsuarioDao usuarioDao = new UsuarioDao(getBaseContext()); testando metodo
 
 //        TITULO DA PAGINA
 
@@ -127,9 +123,6 @@ public class TelaCadastro extends AppCompatActivity {
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
 
-        criarConexao();
-
-
     }
 
 
@@ -169,24 +162,9 @@ public class TelaCadastro extends AppCompatActivity {
         return (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
 
-    private void criarConexao(){
-        try {
-            dadosOpenHelper = new DadosOpenHelper(this);
-            conexao = dadosOpenHelper.getWritableDatabase();
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Aviso");
-            builder.setMessage("Conexão criada com sucesso");
-            builder.setNeutralButton("OK", null);
-            builder.show();
 
-        }catch (SQLException ex){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setTitle("Erro");
-            dlg.setMessage(ex.getMessage());
-            dlg.setNeutralButton("OK", null);
-            dlg.show();
 
-        }
-    }
+
+
 
 }

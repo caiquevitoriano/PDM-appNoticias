@@ -1,6 +1,8 @@
 package com.example.appnoticias.Model;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private int codigo;
     private String nome;
     private String email;
@@ -69,5 +71,15 @@ public class Usuario {
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return this.codigo == ((Usuario)o).codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.codigo;
     }
 }
