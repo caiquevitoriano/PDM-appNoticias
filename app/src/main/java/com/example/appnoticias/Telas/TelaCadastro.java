@@ -1,8 +1,8 @@
 package com.example.appnoticias.Telas;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -12,13 +12,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Database.DadosOpenHelper;
+import com.example.appnoticias.Database.UsuarioDao;
 import com.example.appnoticias.Model.Usuario;
 
 
@@ -29,11 +30,13 @@ public class TelaCadastro extends AppCompatActivity {
     private Input nome;
     private Input email;
     private Input senha;
-    private Usuario usuario;
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        UsuarioDao usuarioDao = new UsuarioDao(getBaseContext()); testando metodo
 
 //        TITULO DA PAGINA
 
@@ -120,8 +123,8 @@ public class TelaCadastro extends AppCompatActivity {
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
 
-
     }
+
 
     public boolean validaCampos(){
         boolean res = false;
@@ -158,6 +161,9 @@ public class TelaCadastro extends AppCompatActivity {
     public boolean isEmailValido(String email) {
         return (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
     }
+
+
+
 
 
 
