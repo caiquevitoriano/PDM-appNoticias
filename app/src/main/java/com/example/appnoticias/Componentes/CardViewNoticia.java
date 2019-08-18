@@ -20,7 +20,6 @@ public class CardViewNoticia extends LinearLayout {
     public CardViewNoticia(Activity tela, String titulo, String descricao, String data) {
         super(tela);
         this.init(tela, titulo, descricao, data);
-        //definindo layout
         this.noticeWithoutLayoutImage(tela);
     }
 
@@ -28,24 +27,23 @@ public class CardViewNoticia extends LinearLayout {
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
         setOrientation(VERTICAL);
 
-//        Integer halfWidth = DeviceProperties.getDeviceWidth(activity.getWindowManager())/2;
 
         this.titulo = new TextView(activity);
         this.titulo.setText(titulo);
-        this.titulo.setTextSize(20);
-        this.titulo.setWidth(50);
+        this.titulo.setTextSize(12);
+        this.titulo.setWidth(10);
 
         this.descricao = new TextView(activity);
         this.descricao.setText(descricao);
-        this.descricao.setTextSize(14);
+        this.descricao.setTextSize(10);
         this.descricao.setPadding(0,10,0,0);
-        this.descricao.setWidth(50);
+        this.descricao.setWidth(10);
 
         this.data = new TextView(activity);
         this.data.setText(data);
-        this.data.setTextSize(16);
+        this.data.setTextSize(10);
         this.data.setPadding(0,10,0,0);
-        this.data.setWidth(50);
+        this.data.setWidth(10);
     }
 
     private void noticeWithoutLayoutImage(Context context){
