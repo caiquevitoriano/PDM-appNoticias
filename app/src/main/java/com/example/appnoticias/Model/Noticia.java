@@ -2,13 +2,16 @@ package com.example.appnoticias.Model;
 
 public class Noticia {
     private String titulo;
-    private String subtitulo;
-    private String conteudo;
+    private String link;
+    private String data;
 
-    public Noticia(String titulo, String subtitulo, String conteudo) {
+    public Noticia() {
+    }
+
+    public Noticia(String titulo, String link, String data) {
         this.titulo = titulo;
-        this.subtitulo = subtitulo;
-        this.conteudo = conteudo;
+        this.link = link;
+        this.data = data;
     }
 
     public Noticia(String titulo) {
@@ -23,19 +26,28 @@ public class Noticia {
         this.titulo = titulo;
     }
 
-    public String getSubtitulo() {
-        return subtitulo;
+    public String getLink() {
+        return link;
     }
 
-    public void setSubtitulo(String subtitulo) {
-        this.subtitulo = subtitulo;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public String getData() {
+        return data;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "Noticia{" +
+                "titulo='" + titulo + '\'' +
+                ", link='" + link + '\'' +
+                ", data='" + data + '\'' +
+                '}';
     }
 }
