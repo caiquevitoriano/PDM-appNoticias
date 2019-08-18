@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.appnoticias.Componentes.CardViewNoticia;
+import com.example.appnoticias.Componentes.GetNotice;
 import com.example.appnoticias.Model.Noticia;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -136,6 +138,11 @@ public class GetRss extends AppCompatActivity {
                                 noticia.setLink(xmlPullParser.nextText());
 
                             }
+//                        }else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
+//                                if (insideItem) {
+//                                    noticia.setDescricao(xmlPullParser.nextText());
+//
+//                                }
                         }
                     } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
                         insideItem = false;
@@ -163,13 +170,14 @@ public class GetRss extends AppCompatActivity {
 
             ArrayAdapter<Noticia> adapter = new ArrayAdapter<Noticia>(GetRss.this, android.R.layout.simple_list_item_1, noticias);
 
-            for (Noticia noticia : noticias) {
-                Log.d("RAULD", noticia.toString());
-            }
+//            for (Noticia noticia : noticias) {
+//                Log.d("RAULD", noticia.toString());
+//            }
 
-            Log.d("RAULD","A");
+            GetNotice notice = new GetNotice(GetRss.this,noticias);
 
-            listView.setAdapter(adapter);
+
+            listView.setAdapter(notice);
 
             progressDialog.dismiss();
 
