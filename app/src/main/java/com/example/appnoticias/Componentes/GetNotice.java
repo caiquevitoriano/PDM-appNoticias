@@ -15,7 +15,6 @@ public class GetNotice extends BaseAdapter {
     private final Activity activity;
 
     public GetNotice(Activity activity, List<Noticia> noticias) {
-        Log.i("APP_INFO","Adapter para noticia criado com "+noticias.size()+" noticias!");
         this.noticias = noticias;
         this.activity = activity;
     }

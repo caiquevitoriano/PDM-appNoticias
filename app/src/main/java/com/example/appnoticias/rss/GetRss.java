@@ -138,11 +138,11 @@ public class GetRss extends AppCompatActivity {
                                 noticia.setLink(xmlPullParser.nextText());
 
                             }
-//                        }else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
-//                                if (insideItem) {
-//                                    noticia.setDescricao(xmlPullParser.nextText());
-//
-//                                }
+                        }else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
+                                if (insideItem) {
+                                    noticia.setDescricao(Html.fromHtml(xmlPullParser.nextText()).toString());
+
+                                }
                         }
                     } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
                         insideItem = false;
