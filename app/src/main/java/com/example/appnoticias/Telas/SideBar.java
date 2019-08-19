@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,16 +22,6 @@ import com.google.android.material.navigation.NavigationView;
 //public class MainActivity extends AppCompatActivity {
 public class SideBar extends Activity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ViewGroup header(){
-        //
-        TextView tv = new TextView(this);
-        tv.setText("Cabeçalho");
-        //
-        LinearLayout l = new LinearLayout(this);
-        l.addView(tv);
-        //
-        return l;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +29,22 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         //criando o layout e vinculando ao activity
         DrawerLayout drawer = new DrawerLayout(this);
         setContentView(drawer);
+
         //criando o navbar
+        Toolbar navBarSideBar = new Toolbar(this);
+        navBarSideBar.setBackgroundColor(Color.rgb(255,140,0));
+        navBarSideBar.setElevation(10);
+        navBarSideBar.setPadding(0,10,0,0);
+        navBarSideBar.setTitle("News");
+        navBarSideBar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+
         AppBarLayout bar = new AppBarLayout(this);
         Toolbar toolbar = new Toolbar(this);
-        toolbar.setBackgroundColor(Color.RED);
+        toolbar.setBackgroundColor(Color.rgb(255,140,0));
         toolbar.setElevation(10);
+        toolbar.setPadding(0,10,0,0);
+
         //setSupportActionBar(toolbar); descomente se tiver usando AppCompatActivity
         bar.addView(toolbar);
         drawer.addView(bar, 0, new DrawerLayout.LayoutParams(
@@ -68,7 +70,7 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         navigationView.getMenu().add(0, 1, 1, "menu #2");
         //
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.addHeaderView(header());
+        navigationView.addHeaderView(navBarSideBar);
     }
 
     @Override
