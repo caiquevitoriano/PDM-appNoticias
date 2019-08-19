@@ -42,6 +42,7 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         AppBarLayout bar = new AppBarLayout(this);
         Toolbar toolbar = new Toolbar(this);
         toolbar.setBackgroundColor(Color.RED);
+        toolbar.setElevation(10);
         //setSupportActionBar(toolbar); descomente se tiver usando AppCompatActivity
         bar.addView(toolbar);
         drawer.addView(bar, 0, new DrawerLayout.LayoutParams(
