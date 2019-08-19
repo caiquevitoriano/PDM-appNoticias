@@ -18,17 +18,13 @@ public class UsuarioDao {
     }
 
 
-    public boolean salvar(int codigo,String email,String nome, String senha){
+    public boolean salvar(String email,String nome, String senha){
+        String codigo;
         ContentValues contentValues = new ContentValues();
         contentValues.put("EMAIL",email);
         contentValues.put("NOME",nome);
         contentValues.put("SENHA",senha);
-        if(codigo > 0)
-            return gw.getDatabase().update(TABLE_USUARIOS, contentValues, "CODIGO=?", new String[]{ codigo + "" }) > 0;
-        else
         return gw.getDatabase().insert(TABLE_USUARIOS, null, contentValues) > 0;
-
-
     }
 
     public boolean excluir(int codigo){
@@ -53,20 +49,17 @@ public class UsuarioDao {
         return usuarios;
     }
 
-    public List<Usuario>buscarUsuario(int codigo) {
-        List<Usuario> usuarios = new ArrayList<>();
-        Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE CODIGO = '"+ codigo +"'", null);
+    public Usuario buscarUsuario(String email) {
+        Usuario usuario = new Usuario();
+        Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE CODIGO = '"+ email +"'", null);
         while(cursor.moveToNext()){
-            Usuario usuario = new Usuario();
             usuario.setCodigo(cursor.getInt(0));
             usuario.setEmail(cursor.getString(1));
             usuario.setNome(cursor.getString(2));
             usuario.setSenha(cursor.getString(3));
-
-            usuarios.add(usuario);
         }
         cursor.close();
-        return usuarios;
+        return usuario;
     }
 
 

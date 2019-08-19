@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,13 +31,15 @@ public class TelaCadastro extends AppCompatActivity {
     private Input nome;
     private Input email;
     private Input senha;
+    private UsuarioDao usuarioDao;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        UsuarioDao usuarioDao = new UsuarioDao(getBaseContext()); testando metodo
+        usuarioDao = new UsuarioDao(getBaseContext());
+        System.out.println(usuarioDao.listar());
 
 //        TITULO DA PAGINA
 
@@ -97,7 +100,13 @@ public class TelaCadastro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CADASTRADO");
-                validaCampos();
+                if(validaCampos()==true){
+                    usuarioDao.salvar(edtEmail,edtNome,edtSenha);
+                    Toast.makeText(TelaCadastro.this,"Usuário Cadastrado!",Toast.LENGTH_SHORT).show();
+                    System.out.println(usuarioDao.listar());
+                    Intent mudarTelaCadastro = new Intent(getApplicationContext(),TelaLogin.class);
+                    startActivity(mudarTelaCadastro);
+                }
             }
         });
         layoutBotoes.addView(botaoCadastro);
@@ -131,25 +140,30 @@ public class TelaCadastro extends AppCompatActivity {
         edtNome = nome.getValue();
         edtEmail = email.getValue();
         edtSenha = senha.getValue();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Aviso");
+        builder.setMessage("Há campos inválidos ou em branco!");
+        builder.setNeutralButton("OK", null);
 
         if (res = isCampoVazio(edtNome)){
             nome.requestFocus();
+            builder.show();
+            return false;
         }else if (res = isCampoVazio(edtEmail)){
             email.requestFocus();
-        }else if (res = !isEmailValido(edtEmail)){
+            builder.show();
+            return false;
+        }else if (res = !Patterns.EMAIL_ADDRESS.matcher(edtEmail).matches()){
             email.requestFocus();
+            builder.show();
+            return false;
         } else if (res = isCampoVazio(edtSenha)||(edtSenha.length()<4)){
             senha.requestFocus();
-        }
-        if (res) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Aviso");
-            builder.setMessage("Há campos inválidos ou em branco!");
-            builder.setNeutralButton("OK", null);
             builder.show();
+            return false;
         }
 
-        return res;
+        else return true;
     }
 
 
@@ -158,9 +172,6 @@ public class TelaCadastro extends AppCompatActivity {
         return (TextUtils.isEmpty(valor) || valor.trim().isEmpty());
     }
 
-    public boolean isEmailValido(String email) {
-        return (!isCampoVazio(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
 
 
 
