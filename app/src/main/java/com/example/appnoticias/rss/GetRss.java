@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.PersistableBundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import com.example.appnoticias.Componentes.CardViewNoticia;
 import com.example.appnoticias.Componentes.GetNotice;
 import com.example.appnoticias.Model.Noticia;
+import com.example.appnoticias.Telas.SideBar;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -36,7 +38,7 @@ public class GetRss extends AppCompatActivity {
 
     private LinearLayout layoutPrincipal;
     private ListView listView;
-
+    private SideBar side;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

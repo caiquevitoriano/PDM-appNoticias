@@ -66,8 +66,9 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         //adicionar ao layout
         NavigationView navigationView = new NavigationView(this);
         drawer.addView(navigationView, 1, params);
-        navigationView.getMenu().add(0, 0, 0, "menu #1");
-        navigationView.getMenu().add(0, 1, 1, "menu #2");
+        navigationView.getMenu().add(0, 0, 0, "Dados");
+        navigationView.getMenu().add(0, 1, 1, "Noticias");
+        navigationView.getMenu().add(0, 2, 2, "Logout");
         //
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.addHeaderView(navBarSideBar);
