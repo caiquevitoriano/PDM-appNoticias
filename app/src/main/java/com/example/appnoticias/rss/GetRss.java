@@ -105,7 +105,7 @@ public class GetRss extends AppCompatActivity {
                 factory.setNamespaceAware(false);
 
                 XmlPullParser xmlPullParser = factory.newPullParser();
-                xmlPullParser.setInput(getInputStream(url), "UTF_8");
+                xmlPullParser.setInput(url.openConnection().getInputStream(), "utf_8");
 
                 boolean insideItem = false;
 

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
 import com.example.appnoticias.R;
+import com.example.appnoticias.rss.GetRss;
 
 public class TelaLogin extends AppCompatActivity {
 
@@ -88,7 +89,7 @@ public class TelaLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI AUTENTICADO");
-                Intent mudaIntent = new Intent(getApplicationContext(), TelaListar.class);
+                Intent mudaIntent = new Intent(getApplicationContext(), GetRss.class);
                 startActivity((mudaIntent));
             }
         });
