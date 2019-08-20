@@ -84,7 +84,7 @@ public class GetRss extends SideBar {
         }
     }
 
-    public class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
+    public static class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
 
         ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
