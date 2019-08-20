@@ -100,15 +100,23 @@ public class TelaCadastro extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CADASTRADO");
+
+
                 if(validaCampos()==true){
-                    usuarioDao.salvar(edtEmail,edtNome,edtSenha);
-                    Toast.makeText(TelaCadastro.this,"Usuário Cadastrado!",Toast.LENGTH_SHORT).show();
-                    System.out.println(usuarioDao.listar());
-                    Intent mudarTelaCadastro = new Intent(getApplicationContext(),TelaLogin.class);
-                    startActivity(mudarTelaCadastro);
+
+                    if (usuarioDao.salvar(edtEmail,edtNome,edtSenha)){
+                        Toast.makeText(TelaCadastro.this,"Usuário Cadastrado!",Toast.LENGTH_SHORT).show();
+                        System.out.println(usuarioDao.listar());
+
+                    }else {
+                        Toast.makeText(TelaCadastro.this,"Email ja existe!",Toast.LENGTH_SHORT).show();
+
+                    }
+
                 }
             }
         });
+
         layoutBotoes.addView(botaoCadastro);
 
         Botao botaoCancelar = new Botao(this, "Cancelar");

@@ -3,6 +3,7 @@ package com.example.appnoticias.Database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import com.example.appnoticias.Model.Usuario;
 
@@ -19,12 +20,16 @@ public class UsuarioDao {
 
 
     public boolean salvar(String email,String nome, String senha){
-        String codigo;
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("EMAIL",email);
-        contentValues.put("NOME",nome);
-        contentValues.put("SENHA",senha);
-        return gw.getDatabase().insert(TABLE_USUARIOS, null, contentValues) > 0;
+        try {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("EMAIL",email);
+            contentValues.put("NOME",nome);
+            contentValues.put("SENHA",senha);
+            return gw.getDatabase().insertOrThrow(TABLE_USUARIOS, null, contentValues) > 0;
+        }catch (SQLiteConstraintException ex){
+            return false;
+        }
+
     }
 
     public boolean excluir(int codigo){
