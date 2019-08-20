@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetRss extends AppCompatActivity {
+public class GetRss extends SideBar {
 
 //    private ArrayList<String> titulos = new ArrayList<>();
     private ArrayList<String> links = new ArrayList<>();
@@ -50,6 +50,7 @@ public class GetRss extends AppCompatActivity {
         layoutPrincipal.setGravity(Gravity.CENTER_HORIZONTAL);
         layoutPrincipal.setPadding(0, 0, 0, 0);
         layoutPrincipal.setOrientation(LinearLayout.VERTICAL);
+        setDynamicContent(layoutPrincipal);
 
         listView = new ListView(this);
 
@@ -69,7 +70,7 @@ public class GetRss extends AppCompatActivity {
 
         new ProcessaChamadaEmBackground().execute();
 
-        setContentView(layoutPrincipal);
+//        setContentView(layoutPrincipal);
 
 
     }

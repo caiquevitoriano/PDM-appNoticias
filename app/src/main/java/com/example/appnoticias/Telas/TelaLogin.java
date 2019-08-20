@@ -28,7 +28,7 @@ public class TelaLogin extends AppCompatActivity {
         TextView titulo = new TextView(this);
         titulo.setPadding(0,80,0,0);
         titulo.setText("LOGIN\n\n");
-        titulo.setTextSize(25f);
+        titulo.setTextSize(20f);
         titulo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
 //        LAYOUT DOS BOTOES
