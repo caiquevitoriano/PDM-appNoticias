@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.appnoticias.R;
+import com.example.appnoticias.rss.GetRss;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.navigation.NavigationView;
 
@@ -67,7 +68,6 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         //criando o Toolbar
         AppBarLayout bar = new AppBarLayout(this);
         Toolbar toolbar = new Toolbar(this);
-        toolbar.setTitle(getTitleNavBar());
         toolbar.setBackgroundColor(Color.rgb(255,69,0));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(50);
@@ -103,7 +103,7 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         navigationView.setNavigationItemSelectedListener(this);
         //
         Toolbar toolbarNavBar = new Toolbar(this);
-        toolbarNavBar.setBackgroundColor(Color.rgb(218, 220, 223));
+        toolbarNavBar.setBackgroundColor(Color.rgb(255,69,0));
 //        toolbarNavBar.addView(header("Ian Carneiro Teixeira de Araujo"));
         navigationView.addHeaderView(toolbarNavBar);
         //
@@ -113,10 +113,6 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
     public void setDynamicContent(View c){
 //        container.removeViewAt(2);
         container.addView(c, 1);
-    }
-
-    public String getTitleNavBar(){
-        return "NavBar";
     }
 
 //    @Override
@@ -132,7 +128,7 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
                 startActivity(new Intent(this, TelaEditar.class));
             }
         } else if (menuItem.getItemId() == 1){
-            Toast.makeText(this, "Selecionou o menu 2", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, GetRss.class));
         }
         return false;
     }

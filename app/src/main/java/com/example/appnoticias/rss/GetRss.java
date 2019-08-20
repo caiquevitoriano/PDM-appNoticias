@@ -32,13 +32,11 @@ import java.util.List;
 
 public class GetRss extends SideBar {
 
-//    private ArrayList<String> titulos = new ArrayList<>();
     private ArrayList<String> links = new ArrayList<>();
     private List<Noticia> noticias = new ArrayList<>();
 
     private LinearLayout layoutPrincipal;
     private ListView listView;
-    private SideBar side;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +82,7 @@ public class GetRss extends SideBar {
         }
     }
 
-    public static class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
+    public class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
 
         ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
