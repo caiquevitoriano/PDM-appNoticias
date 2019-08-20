@@ -31,6 +31,16 @@ public class UsuarioDao {
         return gw.getDatabase().delete(TABLE_USUARIOS, "CODIGO=?", new String[]{ codigo + "" }) > 0;
     }
 
+    public void alterar(Usuario usuario){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("EMAIL",usuario.getEmail());
+        contentValues.put("NOME",usuario.getNome());
+        contentValues.put("SENHA",usuario.getSenha());
+        String[] parametros = new  String[1];
+        parametros[0] = String.valueOf(usuario.getCodigo());
+
+        gw.getDatabase().update("USUARIO",contentValues,"CODIGO = ?",parametros);
+    }
 
 
     public List<Usuario>listar(){
@@ -51,7 +61,7 @@ public class UsuarioDao {
 
     public Usuario buscarUsuario(String email) {
         Usuario usuario = new Usuario();
-        Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE CODIGO = '"+ email +"'", null);
+        Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE EMAIL = '"+ email +"'", null);
         while(cursor.moveToNext()){
             usuario.setCodigo(cursor.getInt(0));
             usuario.setEmail(cursor.getString(1));
@@ -62,6 +72,20 @@ public class UsuarioDao {
         return usuario;
     }
 
+    public Usuario UsuarioAutenticar (String email,String senha) {
+        Usuario usuario = new Usuario();
+
+        Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE EMAIL = '"+ email +"' and senha = '"+senha+"'", null);
+        while(cursor.moveToNext()){
+            usuario.setCodigo(cursor.getInt(0));
+            usuario.setEmail(cursor.getString(1));
+            usuario.setNome(cursor.getString(2));
+            usuario.setSenha(cursor.getString(3));
+        }
+        cursor.close();
+        System.out.println("deu certo!");
+        return usuario;
+    }
 
 
 

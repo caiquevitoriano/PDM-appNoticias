@@ -1,6 +1,7 @@
 package com.example.appnoticias.Telas;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
@@ -11,9 +12,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Database.UsuarioDao;
+import com.example.appnoticias.Model.Usuario;
 import com.example.appnoticias.R;
 import com.example.appnoticias.rss.GetRss;
 
@@ -75,10 +79,10 @@ public class TelaLogin extends AppCompatActivity {
 
 //      INPUTS DA PAGINA
 
-        Input email = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
+        final Input email = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
         layoutInputs.addView(email);
 
-        Input senha = new Input(this,"Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        final Input senha = new Input(this,"Senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
         layoutInputs.addView(senha);
 
 
@@ -88,9 +92,24 @@ public class TelaLogin extends AppCompatActivity {
         botaoEntrar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("RAULT","FOI AUTENTICADO");
-                Intent mudaIntent = new Intent(getApplicationContext(), GetRss.class);
-                startActivity((mudaIntent));
+                UsuarioDao usuarioDao = new UsuarioDao(TelaLogin.this);
+                Usuario usuario = usuarioDao.buscarUsuario(email.getValue());
+                usuarioDao.UsuarioAutenticar(usuario.getEmail(),usuario.getSenha());
+                if (email.getValue().equals(usuario.getEmail())&& senha.getValue().equals(usuario.getSenha())){
+                    SharedPreferences.Editor editor = getSharedPreferences("authenticatedUser",MODE_PRIVATE).edit();
+                    editor.putBoolean("logado",true);
+                    editor.putString("nome",usuario.getNome());
+                    editor.putString("email",usuario.getEmail());
+                    editor.putString("senha",usuario.getSenha());
+                    editor.apply();
+                    Intent mudaIntent = new Intent(getApplicationContext(), GetRss.class);
+                    startActivity((mudaIntent));
+                    Log.d("RAULT","FOI AUTENTICADO");
+                    finish();
+                }else {
+                    Toast.makeText(TelaLogin.this,"Email ou senha inválidos!",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         layoutBotoes.addView(botaoEntrar);
