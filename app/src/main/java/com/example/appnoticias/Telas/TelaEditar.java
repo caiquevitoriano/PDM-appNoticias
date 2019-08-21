@@ -22,17 +22,18 @@ import com.example.appnoticias.R;
 import com.example.appnoticias.rss.GetRss;
 
 public class TelaEditar extends SideBar {
-    private Input edtNome;
-    private Input edtEmail;
-    private Input edtSenha;
-    private String nome;
-    private String email;
-    private String senha;
-
+    private String edtNome;
+    private String edtEmail;
+    private String edtSenha;
+    private Input nome;
+    private Input email;
+    private Input senha;
+    private UsuarioDao usuarioDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        usuarioDao = new UsuarioDao(getBaseContext());
 
         //        TITULO DA PAGINA
 
@@ -73,16 +74,14 @@ public class TelaEditar extends SideBar {
 
 //      INPUTS DA PAGINA
 
-        edtNome = new Input(this,"Nome", InputType.TYPE_CLASS_TEXT, 500);
-        layoutInputs.addView(edtNome);
-
-        edtEmail = new Input(this,"Email", InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, 500);
-        layoutInputs.addView(edtEmail);
-
-        edtSenha = new Input(this,"Senha atual", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
-        layoutInputs.addView(edtSenha);
 
 
+        nome = new Input(this,"Nome", InputType.TYPE_CLASS_TEXT, 500);
+        layoutInputs.addView(nome);
+
+
+        senha = new Input(this,"Senha atual", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        layoutInputs.addView(senha);
 
 
 
@@ -90,41 +89,37 @@ public class TelaEditar extends SideBar {
 
         Botao botaoCadastro = new Botao(this, "Editar", Color.rgb(255,69,0));
         botaoCadastro.setColorTextButton();
-        botaoCadastro.setOnClickListener(new View.OnClickListener() {
+        botaoCadastro.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Usuario usuario = new Usuario();
-                UsuarioDao usuarioDao = new UsuarioDao(TelaEditar.this);
                 System.out.println(usuarioDao.listar());
                 SharedPreferences sharedPreferences = getSharedPreferences("authenticatedUser", MODE_PRIVATE);
                 int idUsuario = sharedPreferences.getInt("codigo",usuario.getCodigo());
+                String emailUsuario = sharedPreferences.getString("email",usuario.getEmail());
                 usuario.setCodigo(idUsuario);
-                usuario.setNome(edtNome.getValue());
-                usuario.setEmail(edtEmail.getValue());
-                usuario.setSenha(edtSenha.getValue());
+                usuario.setNome(nome.getValue());
+                usuario.setEmail(emailUsuario);
+                usuario.setSenha(senha.getValue());
 
                 if(validaCampos()==true){
 
                     usuarioDao.alterar(usuario);
-                    Toast.makeText(TelaEditar.this,"Usuário Editado com sucesso!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TelaEditar.this,"Usuário Editado!",Toast.LENGTH_SHORT).show();
                     System.out.println(usuarioDao.listar());
                     Log.d("RAULT","FOI EDITADO");
                     finish();
                     Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaLogin.class);
                     startActivity(mudarTelaCadastro);
 
-                    }else {
-                        Toast.makeText(TelaEditar.this,"",Toast.LENGTH_SHORT).show();
-
-                        }
-
+                    }
                 }
 
             });
         layoutBotoes.addView(botaoCadastro);
 
 
-        Botao botaoCancelar = new Botao(this, "Cancelar", Color.rgb(255,69,0));
+        Botao botaoCancelar = new Botao(this, "Excluir usuario", Color.rgb(255,69,0));
         botaoCancelar.setColorTextButton();
         botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
@@ -146,28 +141,20 @@ public class TelaEditar extends SideBar {
     }
     public boolean validaCampos(){
         boolean res = false;
-        nome = edtNome.getValue();
-        email = edtEmail.getValue();
-        senha = edtSenha.getValue();
+        edtNome = nome.getValue();
+        edtSenha = senha.getValue();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Aviso");
         builder.setMessage("Há campos inválidos ou em branco!");
         builder.setNeutralButton("OK", null);
 
-        if (res = isCampoVazio(nome)){
-            edtNome.requestFocus();
+        if (res = isCampoVazio(edtNome)){
+            nome.requestFocus();
             builder.show();
             return false;
-        }else if (res = isCampoVazio(email)){
-            edtEmail.requestFocus();
-            builder.show();
-            return false;
-        }else if (res = !Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            edtEmail.requestFocus();
-            builder.show();
-            return false;
-        } else if (res = isCampoVazio(senha)||(senha.length()<4)){
-            edtSenha.requestFocus();
+
+        } else if (res = isCampoVazio(edtSenha)||(edtSenha.length()<4)){
+            senha.requestFocus();
             builder.show();
             return false;
         }
