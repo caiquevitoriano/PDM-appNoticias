@@ -98,6 +98,7 @@ public class TelaLogin extends AppCompatActivity {
                 if (email.getValue().equals(usuario.getEmail())&& senha.getValue().equals(usuario.getSenha())){
                     SharedPreferences.Editor editor = getSharedPreferences("authenticatedUser",MODE_PRIVATE).edit();
                     editor.putBoolean("logado",true);
+                    editor.putInt("codigo",usuario.getCodigo());
                     editor.putString("nome",usuario.getNome());
                     editor.putString("email",usuario.getEmail());
                     editor.putString("senha",usuario.getSenha());

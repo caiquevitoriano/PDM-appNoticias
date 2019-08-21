@@ -2,9 +2,11 @@ package com.example.appnoticias.Telas;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,6 +59,17 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         DrawerLayout drawer = new DrawerLayout(this);
         setContentView(drawer);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("authenticatedUser", MODE_PRIVATE);
+        String usuarioLogado = sharedPreferences.getString("nome","");
+
+        Log.d("RAULT",usuarioLogado);
+
+        TextView nomeToogle = new TextView(this);
+        nomeToogle.setText("Bem vindo, " + usuarioLogado.toUpperCase() + "");
+        nomeToogle.setTextSize(20f);
+        nomeToogle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+
         //Container que conterá todos os componentes e layouts da tela
         container = new LinearLayout(this);
         container.setLayoutParams(new LinearLayout.LayoutParams(
@@ -94,6 +107,7 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         //adicionar ao layout
         NavigationView navigationView = new NavigationView(this);
         navigationView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+
         drawer.addView(navigationView, 1, params);                                   //-------------------------------------------//
 
         navigationView.getMenu().add(0, 0, 0, "Minha Conta");//.setIcon(R.drawable.ic_profile);
@@ -104,6 +118,8 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         //
         Toolbar toolbarNavBar = new Toolbar(this);
         toolbarNavBar.setBackgroundColor(Color.rgb(255,69,0));
+        toolbarNavBar.addView( nomeToogle );
+
 //        toolbarNavBar.addView(header("Ian Carneiro Teixeira de Araujo"));
         navigationView.addHeaderView(toolbarNavBar);
         //

@@ -36,15 +36,15 @@ public class UsuarioDao {
         return gw.getDatabase().delete(TABLE_USUARIOS, "CODIGO=?", new String[]{ codigo + "" }) > 0;
     }
 
-    public void alterar(Usuario usuario){
+    public boolean alterar(Usuario usuario){
         ContentValues contentValues = new ContentValues();
         contentValues.put("EMAIL",usuario.getEmail());
         contentValues.put("NOME",usuario.getNome());
         contentValues.put("SENHA",usuario.getSenha());
         String[] parametros = new  String[1];
         parametros[0] = String.valueOf(usuario.getCodigo());
+        return gw.getDatabase().update(TABLE_USUARIOS, contentValues, "ID=?", new String[]{ usuario.getCodigo()+ "" }) > 0;
 
-        gw.getDatabase().update("USUARIO",contentValues,"CODIGO = ?",parametros);
     }
 
 

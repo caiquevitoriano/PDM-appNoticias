@@ -107,6 +107,8 @@ public class TelaCadastro extends AppCompatActivity {
                     if (usuarioDao.salvar(edtEmail,edtNome,edtSenha)){
                         Toast.makeText(TelaCadastro.this,"Usuário Cadastrado!",Toast.LENGTH_SHORT).show();
                         System.out.println(usuarioDao.listar());
+                        Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaLogin.class);
+                        startActivity(mudarTelaCadastro);
 
                     }else {
                         Toast.makeText(TelaCadastro.this,"Email ja existe!",Toast.LENGTH_SHORT).show();
