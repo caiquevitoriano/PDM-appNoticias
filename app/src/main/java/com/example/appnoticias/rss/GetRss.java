@@ -2,6 +2,9 @@ package com.example.appnoticias.rss;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Html;
@@ -16,6 +19,7 @@ import android.os.Bundle;
 import com.example.appnoticias.Componentes.GetNoticeAdapter;
 import com.example.appnoticias.Componentes.NoticiaUnica;
 import com.example.appnoticias.Model.Noticia;
+import com.example.appnoticias.R;
 import com.example.appnoticias.Telas.NoticiaComple;
 import com.example.appnoticias.Telas.SideBar;
 import org.xmlpull.v1.XmlPullParser;
@@ -85,11 +89,19 @@ public class GetRss extends SideBar {
 
         ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
+
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.setMessage("Buscando Noticias ... aguarde !");
+            progressDialog.setProgressStyle(R.style.AppTheme);
+
+            progressDialog.setTitle("Buscando Noticias!");
+            progressDialog.setMessage("Aguarde...");
+
+
+
             progressDialog.show();
         }
 
