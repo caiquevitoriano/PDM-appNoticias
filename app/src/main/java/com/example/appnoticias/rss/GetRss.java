@@ -100,8 +100,6 @@ public class GetRss extends SideBar {
             progressDialog.setTitle("Buscando Noticias!");
             progressDialog.setMessage("Aguarde...");
 
-
-
             progressDialog.show();
         }
 

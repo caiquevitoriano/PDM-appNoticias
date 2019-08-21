@@ -31,11 +31,11 @@ public class Noticias extends LinearLayout {
 
         this.titulo = new TextView(activity);
         this.titulo.setText(titulo);
-        this.titulo.setTextSize(12);
+        this.titulo.setTextSize(20);
         this.titulo.setTextColor(Color.BLACK);
         this.titulo.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         this.titulo.setWidth(10);
-        this.titulo.setPadding(0,20,0,0);
+        this.titulo.setPadding(30,20,30,0);
 
 
         this.descricao = new TextView(activity);
@@ -43,9 +43,8 @@ public class Noticias extends LinearLayout {
         this.descricao.setTextSize(10);
         this.descricao.setTextColor(Color.BLACK);
         this.descricao.setPadding(20,10,20,0);
-        this.descricao.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         this.descricao.setWidth(10);
-        this.descricao.setPadding(0,20,0,0);
+        this.descricao.setPadding(20,20,20,0);
 
 
         this.data = new TextView(activity);
@@ -55,7 +54,7 @@ public class Noticias extends LinearLayout {
         this.data.setPadding(0,10,0,0);
         this.data.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         this.data.setWidth(10);
-        this.data.setPadding(0,20,0,0);
+        this.data.setPadding(0,20,0,10);
 
     }
 
