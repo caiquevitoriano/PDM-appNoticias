@@ -54,7 +54,9 @@ public class RssService extends Service {
 
     private void agendarProximoServico() {
         Intent intent = new Intent(this, BroadCasterRssReciver.class);
-        PendingIntent intencaoAgendada = PendingIntent.getBroadcast(this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent intencaoAgendada = PendingIntent.getBroadcast(
+                this,100,intent,PendingIntent.FLAG_UPDATE_CURRENT
+        );
         AlarmManager alarme = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarme.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis() + MINUTE*1,intencaoAgendada);
         Log.d("RAULD","Agendando servico");
