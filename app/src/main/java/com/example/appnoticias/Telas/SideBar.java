@@ -21,6 +21,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.example.appnoticias.Database.AccessManager;
 import com.example.appnoticias.R;
 import com.example.appnoticias.rss.GetRss;
 import com.google.android.material.appbar.AppBarLayout;
@@ -152,6 +153,13 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
             }
         } else if (menuItem.getItemId() == 1){
             startActivity(new Intent(this, GetRss.class));
+        } else if (menuItem.getItemId() == 2){
+            AccessManager am = new AccessManager(this);
+            am.remove();
+            Intent loginIntent = new Intent(this, TelaLogin.class);
+            SideBar.this.finish();
+            startActivity(loginIntent);
+
         }
         return false;
     }
