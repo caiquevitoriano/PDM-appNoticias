@@ -11,10 +11,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.*;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.GetNoticeAdapter;
 import com.example.appnoticias.Componentes.NoticiaUnica;
@@ -28,8 +25,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,19 +85,24 @@ public class GetRss extends SideBar {
 
         ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
+        public boolean isOnline() {
+            try {
+                int timeoutMs = 1500;
+                Socket sock = new Socket();
+                SocketAddress sockaddr = new InetSocketAddress("8.8.8.8", 53);
 
+                sock.connect(sockaddr, timeoutMs);
+                sock.close();
+
+                return true;
+            } catch (IOException e) { return false; }
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog.setProgressStyle(R.style.AppTheme);
-
-            progressDialog.setTitle("Buscando Noticias!");
-            progressDialog.setMessage("Aguarde...");
-
-
-
+            progressDialog.setMessage("Buscando Noticias ... aguarde !");
             progressDialog.show();
         }
 
@@ -109,78 +110,87 @@ public class GetRss extends SideBar {
         protected String doInBackground(Integer... integers) {
 
             String html = null;
+            if (isOnline()) {
 
-            try {
-                URL url = new URL("http://uirauna.net/feed/");
+                try {
+                    URL url = new URL("http://uirauna.net/feed/");
 
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(false);
+                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                    factory.setNamespaceAware(false);
 
-                XmlPullParser xmlPullParser = factory.newPullParser();
-                xmlPullParser.setInput(url.openConnection().getInputStream(), "utf_8");
+                    XmlPullParser xmlPullParser = factory.newPullParser();
+                    xmlPullParser.setInput(url.openConnection().getInputStream(), "utf_8");
 
-                boolean insideItem = false;
+                    boolean insideItem = false;
 
-                int eventType = xmlPullParser.getEventType();
+                    int eventType = xmlPullParser.getEventType();
 
-                Noticia noticia = null;
+                    Noticia noticia = null;
 
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    if (eventType == XmlPullParser.START_TAG) {
-                        if (xmlPullParser.getName().equalsIgnoreCase("item")) {
-                            noticia = new Noticia();
-                            insideItem = true;
+                    while (eventType != XmlPullParser.END_DOCUMENT) {
+                        if (eventType == XmlPullParser.START_TAG) {
+                            if (xmlPullParser.getName().equalsIgnoreCase("item")) {
+                                noticia = new Noticia();
+                                insideItem = true;
 
-                        } else if (xmlPullParser.getName().equalsIgnoreCase("title")) {
-                            if (insideItem) {
+                            } else if (xmlPullParser.getName().equalsIgnoreCase("title")) {
+                                if (insideItem) {
 //                                titulos.add(xmlPullParser.nextText());
-                                noticia.setTitulo(xmlPullParser.nextText());
+                                    noticia.setTitulo(xmlPullParser.nextText());
 
-                            }
+                                }
 
-                        } else if (xmlPullParser.getName().equalsIgnoreCase("pubdate")) {
-                            if (insideItem) {
-                                noticia.setData(xmlPullParser.nextText());
+                            } else if (xmlPullParser.getName().equalsIgnoreCase("pubdate")) {
+                                if (insideItem) {
+                                    noticia.setData(xmlPullParser.nextText());
 
-                            }
+                                }
 
-                        } else if (xmlPullParser.getName().equalsIgnoreCase("link")) {
-                            if (insideItem) {
+                            } else if (xmlPullParser.getName().equalsIgnoreCase("link")) {
+                                if (insideItem) {
 //                                links.add(xmlPullParser.nextText());
-                                noticia.setLink(xmlPullParser.nextText());
+                                    noticia.setLink(xmlPullParser.nextText());
 
-                            }
-                        }else if (xmlPullParser.getName().equalsIgnoreCase("content:encoded")) {
-                            if (insideItem) {
-                                String htmlConteudo = xmlPullParser.nextText();
+                                }
+                            } else if (xmlPullParser.getName().equalsIgnoreCase("content:encoded")) {
+                                if (insideItem) {
+                                    String htmlConteudo = xmlPullParser.nextText();
 //                                links.add(xmlPullParser.nextText());
-                                noticia.setConteudo(Html.fromHtml(htmlConteudo).toString());
+                                    noticia.setConteudo(Html.fromHtml(htmlConteudo).toString());
 
-                            }
-                        }else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
+                                }
+                            } else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
                                 if (insideItem) {
                                     noticia.setDescricao(Html.fromHtml(xmlPullParser.nextText()).toString());
 
                                 }
+                            }
+                        } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
+                            insideItem = false;
+                            noticias.add(noticia);
                         }
-                    } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
-                        insideItem = false;
-                        noticias.add(noticia);
+
+                        eventType = xmlPullParser.next();
                     }
 
-                eventType = xmlPullParser.next();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (XmlPullParserException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return html;
+            } else {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Sem conexão com a internet" , Toast.LENGTH_LONG).show();
+                    }
+                });
+                return "";
             }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (XmlPullParserException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return html;
         }
+
 
         @Override
         protected void onPostExecute(String s) {
