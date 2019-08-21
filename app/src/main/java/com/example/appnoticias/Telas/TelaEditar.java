@@ -2,6 +2,7 @@ package com.example.appnoticias.Telas;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -18,41 +19,15 @@ import com.example.appnoticias.Componentes.Input;
 import com.example.appnoticias.Database.UsuarioDao;
 import com.example.appnoticias.Model.Usuario;
 import com.example.appnoticias.R;
+import com.example.appnoticias.rss.GetRss;
 
-public class TelaEditar extends AppCompatActivity {
+public class TelaEditar extends SideBar {
     private Input edtNome;
     private Input edtEmail;
     private Input edtSenha;
     private String nome;
     private String email;
     private String senha;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuItem item1 = menu.add ("Listar Noticias");
-        MenuItem item2 = menu.add ("Sair");
-
-        item1.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
-            @Override
-            public boolean onMenuItemClick (MenuItem item){
-                Log.d("RAULT","Listar Noticias");
-                Intent listarNoticias = new Intent(getApplicationContext(), TelaLogin.class);
-                startActivity((listarNoticias));
-                return true;
-            }
-        });
-
-        item2.setOnMenuItemClickListener (new MenuItem.OnMenuItemClickListener(){
-            @Override
-            public boolean onMenuItemClick (MenuItem item){
-                Log.d("RAULT","Voltar pra login");
-                Intent Sair = new Intent(getApplicationContext(), TelaLogin.class);
-                startActivity((Sair));
-                return true;
-            }
-        });
-        return true;
-    }
 
 
     @Override
@@ -90,7 +65,7 @@ public class TelaEditar extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setPadding(9,9,9,9);
         linearLayout.setGravity(Gravity.CENTER_VERTICAL);
-        setContentView(linearLayout);
+        setDynamicContent(linearLayout);
 
 //        MUDANDO TITULO DA PAGINA
 
@@ -113,7 +88,8 @@ public class TelaEditar extends AppCompatActivity {
 
 //        SETANDO BOTOES
 
-        Botao botaoCadastro = new Botao(this, "Editar");
+        Botao botaoCadastro = new Botao(this, "Editar", Color.rgb(255,69,0));
+        botaoCadastro.setColorTextButton();
         botaoCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,12 +124,13 @@ public class TelaEditar extends AppCompatActivity {
         layoutBotoes.addView(botaoCadastro);
 
 
-        Botao botaoCancelar = new Botao(this, "Cancelar");
+        Botao botaoCancelar = new Botao(this, "Cancelar", Color.rgb(255,69,0));
+        botaoCancelar.setColorTextButton();
         botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("RAULT","FOI CANCELADO");
-                Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaListar.class);
+                Intent mudarTelaCadastro = new Intent(getApplicationContext(), GetRss.class);
                 startActivity(mudarTelaCadastro);
             }
         });

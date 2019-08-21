@@ -71,6 +71,8 @@ public class TelaLogin extends AppCompatActivity {
         imagem.setImageResource(R.drawable.logo);
         imagemL.addView(imagem);
 
+        getWindow().getDecorView().setBackgroundColor(Color.WHITE);
+
 
 
 //        MUDANDO TITULO DA PAGINA
@@ -88,7 +90,9 @@ public class TelaLogin extends AppCompatActivity {
 
 //        SETANDO BOTOES
 
-        Botao botaoEntrar = new Botao(this, "Entrar");
+        Botao botaoEntrar = new Botao(this, "Entrar", Color.rgb(255,69,0));
+        botaoEntrar.setColorTextButton();
+
         botaoEntrar.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +119,8 @@ public class TelaLogin extends AppCompatActivity {
         });
         layoutBotoes.addView(botaoEntrar);
 
-        Botao botaoCriarConta = new Botao(this, "Criar Contar");
+        Botao botaoCriarConta = new Botao(this, "Criar Contar", Color.rgb(255,69,0));
+        botaoCriarConta.setColorTextButton();
         botaoCriarConta.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

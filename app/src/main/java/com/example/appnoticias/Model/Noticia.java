@@ -2,13 +2,24 @@ package com.example.appnoticias.Model;
 
 import android.app.Activity;
 
-public class Noticia {
+import java.io.Serializable;
+
+public class Noticia implements Serializable {
     private String titulo;
     private String link;
     private String data;
     private String descricao;
+    private String conteudo;
 
     public Noticia() {
+    }
+
+    public Noticia(String titulo, String link, String data, String descricao, String conteudo) {
+        this.titulo = titulo;
+        this.link = link;
+        this.data = data;
+        this.descricao = descricao;
+        this.conteudo = conteudo;
     }
 
     public Noticia(Activity activity, String titulo, String link, String data, String descricao) {
@@ -57,6 +68,14 @@ public class Noticia {
         this.descricao = descricao;
     }
 
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
+    }
+
+    public String getConteudo() {
+        return conteudo;
+    }
+
     @Override
     public String toString() {
         return "Noticia{" +
@@ -64,6 +83,7 @@ public class Noticia {
                 ", link='" + link + '\'' +
                 ", data='" + data + '\'' +
                 ", descricao='" + descricao + '\'' +
+                ", conteudo='" + conteudo + '\'' +
                 '}';
     }
 }

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.PersistableBundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,11 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.appnoticias.Componentes.CardViewNoticia;
-import com.example.appnoticias.Componentes.GetNotice;
+import com.example.appnoticias.Componentes.GetNoticeAdapter;
+import com.example.appnoticias.Componentes.NoticiaUnica;
 import com.example.appnoticias.Model.Noticia;
+import com.example.appnoticias.Telas.NoticiaComple;
 import com.example.appnoticias.Telas.SideBar;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -54,17 +53,17 @@ public class GetRss extends SideBar {
 
         layoutPrincipal.addView(listView);
 
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Uri uri = Uri.parse(links.get(position));
-//
-//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//
-//                GetRss.this.startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Noticia ns = noticias.get(position);
+//                NoticiaUnica noticiaUnica = new NoticiaUnica(GetRss.this, ns.getTitulo(),ns.getDescricao(),ns.getData());
+                Intent intent = new Intent(getApplicationContext(), NoticiaComple.class);
+                intent.putExtra("noticiaUnica",ns);
+                startActivity(intent);
+            }
+        });
 
         new ProcessaChamadaEmBackground().execute();
 
@@ -139,6 +138,13 @@ public class GetRss extends SideBar {
                                 noticia.setLink(xmlPullParser.nextText());
 
                             }
+                        }else if (xmlPullParser.getName().equalsIgnoreCase("content:encoded")) {
+                            if (insideItem) {
+                                String htmlConteudo = xmlPullParser.nextText();
+//                                links.add(xmlPullParser.nextText());
+                                noticia.setConteudo(Html.fromHtml(htmlConteudo).toString());
+
+                            }
                         }else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
                                 if (insideItem) {
                                     noticia.setDescricao(Html.fromHtml(xmlPullParser.nextText()).toString());
@@ -168,14 +174,7 @@ public class GetRss extends SideBar {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
-            ArrayAdapter<Noticia> adapter = new ArrayAdapter<Noticia>(GetRss.this, android.R.layout.simple_list_item_1, noticias);
-
-//            for (Noticia noticia : noticias) {
-//                Log.d("RAULD", noticia.toString());
-//            }
-
-            GetNotice notice = new GetNotice(GetRss.this,noticias);
+            GetNoticeAdapter notice = new GetNoticeAdapter(GetRss.this,noticias);
 
 
             listView.setAdapter(notice);

@@ -3,6 +3,7 @@ package com.example.appnoticias.Telas;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -95,7 +96,8 @@ public class TelaCadastro extends AppCompatActivity {
 
 //        SETANDO BOTOES
 
-        Botao botaoCadastro = new Botao(this, "Cadastrar");
+        Botao botaoCadastro = new Botao(this, "Cadastrar", Color.rgb(255,69,0));
+        botaoCadastro.setColorTextButton();
         botaoCadastro.setOnClickAction(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +123,8 @@ public class TelaCadastro extends AppCompatActivity {
 
         layoutBotoes.addView(botaoCadastro);
 
-        Botao botaoCancelar = new Botao(this, "Cancelar");
+        Botao botaoCancelar = new Botao(this, "Cancelar", Color.rgb(255,69,0));
+        botaoCancelar.setColorTextButton();
         botaoCadastro.setStateListAnimator(null);
         botaoCadastro.setElevation(200);
         botaoCadastro.setTranslationZ(200);

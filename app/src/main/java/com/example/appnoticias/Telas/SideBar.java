@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.fonts.Font;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,8 +66,9 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         Log.d("RAULT",usuarioLogado);
 
         TextView nomeToogle = new TextView(this);
+        nomeToogle.setTextColor(Color.WHITE);
         nomeToogle.setText("Bem vindo, " + usuarioLogado.toUpperCase() + "");
-        nomeToogle.setTextSize(20f);
+        nomeToogle.setTextSize(16);
         nomeToogle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
 
@@ -82,6 +84,8 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         AppBarLayout bar = new AppBarLayout(this);
         Toolbar toolbar = new Toolbar(this);
         toolbar.setBackgroundColor(Color.rgb(255,69,0));
+        toolbar.setTitle(getTitleNavBar());
+        toolbar.setTitleTextColor(Color.WHITE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(50);
         }
@@ -120,10 +124,13 @@ public class SideBar extends Activity implements NavigationView.OnNavigationItem
         toolbarNavBar.setBackgroundColor(Color.rgb(255,69,0));
         toolbarNavBar.addView( nomeToogle );
 
-//        toolbarNavBar.addView(header("Ian Carneiro Teixeira de Araujo"));
         navigationView.addHeaderView(toolbarNavBar);
         //
 
+    }
+
+    public String getTitleNavBar(){
+        return "News";
     }
 
     public void setDynamicContent(View c){
