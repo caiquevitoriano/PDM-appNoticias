@@ -37,6 +37,7 @@ public class GetRss extends SideBar {
 
     private List<Noticia> noticias = new ArrayList<>();
 
+
     private LinearLayout layoutPrincipal;
     private ListView listView;
     @Override
@@ -69,9 +70,6 @@ public class GetRss extends SideBar {
         });
 
         new ProcessaChamadaEmBackground().execute();
-
-        noticias = dao.listar();
-
 //        setContentView(layoutPrincipal);
 
 
@@ -88,7 +86,7 @@ public class GetRss extends SideBar {
 
     public class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
 
-        ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
+        private ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
         public boolean isOnline() {
             try {
@@ -186,6 +184,7 @@ public class GetRss extends SideBar {
                         eventType = xmlPullParser.next();
                     }
 
+
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (XmlPullParserException e) {
@@ -209,6 +208,7 @@ public class GetRss extends SideBar {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            noticias = dao.listar();
             GetNoticeAdapter notice = new GetNoticeAdapter(GetRss.this,noticias);
 
 

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import com.example.appnoticias.rss.BroadCasterRssReciver;
+import com.example.appnoticias.rss.GetRss;
 
 public class RssService extends Service {
 
