@@ -3,7 +3,9 @@ package com.example.appnoticias.Database;
 public class AccessDTO {
     private int code;
     private String name;
+    private String senha;
     private String token;
+
 
     public int getCode() {
         return code;
@@ -27,5 +29,13 @@ public class AccessDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

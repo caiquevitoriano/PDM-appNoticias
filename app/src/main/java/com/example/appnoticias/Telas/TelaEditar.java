@@ -16,6 +16,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Database.AccessDTO;
+import com.example.appnoticias.Database.AccessManager;
 import com.example.appnoticias.Database.UsuarioDao;
 import com.example.appnoticias.Model.Usuario;
 import com.example.appnoticias.R;
@@ -39,7 +41,7 @@ public class TelaEditar extends SideBar {
 
         TextView titulo = new TextView(this);
         titulo.setPadding(0,80,0,0);
-        titulo.setText("DADOS\n\n");
+        titulo.setText("EDITE OS SEUS DADOS\n\n");
         titulo.setTextSize(25f);
         titulo.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
@@ -76,11 +78,11 @@ public class TelaEditar extends SideBar {
 
 
 
-        nome = new Input(this,"Nome", InputType.TYPE_CLASS_TEXT, 500);
+        nome = new Input(this,"Novo usuário", InputType.TYPE_CLASS_TEXT, 500);
         layoutInputs.addView(nome);
 
 
-        senha = new Input(this,"Senha atual", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
+        senha = new Input(this,"Nova senha", InputType.TYPE_TEXT_VARIATION_PASSWORD, 500);
         layoutInputs.addView(senha);
 
 
@@ -94,6 +96,7 @@ public class TelaEditar extends SideBar {
             public void onClick(View view) {
                 Usuario usuario = new Usuario();
                 System.out.println(usuarioDao.listar());
+
                 SharedPreferences sharedPreferences = getSharedPreferences("authenticatedUser", MODE_PRIVATE);
                 int idUsuario = sharedPreferences.getInt("codigo",usuario.getCodigo());
                 String emailUsuario = sharedPreferences.getString("email",usuario.getEmail());
@@ -108,14 +111,18 @@ public class TelaEditar extends SideBar {
                     Toast.makeText(TelaEditar.this,"Usuário Editado!",Toast.LENGTH_SHORT).show();
                     System.out.println(usuarioDao.listar());
                     Log.d("RAULT","FOI EDITADO");
-                    finish();
-                    Intent mudarTelaCadastro = new Intent(getApplicationContext(), TelaLogin.class);
-                    startActivity(mudarTelaCadastro);
 
-                    }
+                    AccessManager am = new AccessManager(TelaEditar.this);
+                    am.remove();
+                    TelaEditar.this.finish();
+                    Intent loginIntent = new Intent(getApplicationContext(), TelaLogin.class);
+                    startActivity(loginIntent);
+
+
                 }
+            }
 
-            });
+        });
         layoutBotoes.addView(botaoCadastro);
 
 
