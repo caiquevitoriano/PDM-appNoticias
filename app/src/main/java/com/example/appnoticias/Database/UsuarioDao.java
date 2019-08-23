@@ -36,14 +36,15 @@ public class UsuarioDao {
         return gw.getDatabase().delete(TABLE_USUARIOS, "CODIGO=?", new String[]{ codigo + "" }) > 0;
     }
 
-    public boolean alterar(Usuario usuario){
+    public void alterar(Usuario usuario){
         ContentValues contentValues = new ContentValues();
         contentValues.put("EMAIL",usuario.getEmail());
         contentValues.put("NOME",usuario.getNome());
         contentValues.put("SENHA",usuario.getSenha());
         String[] parametros = new  String[1];
         parametros[0] = String.valueOf(usuario.getCodigo());
-        return gw.getDatabase().update(TABLE_USUARIOS, contentValues, "ID=?", new String[]{ usuario.getCodigo()+ "" }) > 0;
+
+        gw.getDatabase().update(TABLE_USUARIOS,contentValues,"CODIGO = ?",parametros);
 
     }
 
@@ -77,7 +78,7 @@ public class UsuarioDao {
         return usuario;
     }
 
-    public Usuario UsuarioAutenticar (String email,String senha) {
+    public Usuario usuarioAutenticar (String email,String senha) {
         Usuario usuario = new Usuario();
 
         Cursor cursor = gw.getDatabase().rawQuery("SELECT * FROM USUARIOS WHERE EMAIL = '"+ email +"' and senha = '"+senha+"'", null);

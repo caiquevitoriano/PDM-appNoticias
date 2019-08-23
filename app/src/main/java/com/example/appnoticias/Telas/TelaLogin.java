@@ -16,12 +16,20 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.appnoticias.Componentes.Botao;
 import com.example.appnoticias.Componentes.Input;
+import com.example.appnoticias.Database.AccessDTO;
+import com.example.appnoticias.Database.AccessManager;
 import com.example.appnoticias.Database.UsuarioDao;
 import com.example.appnoticias.Model.Usuario;
 import com.example.appnoticias.R;
 import com.example.appnoticias.rss.GetRss;
 
 public class TelaLogin extends AppCompatActivity {
+
+    private void gotoNewsList(){
+        Intent mudaIntent = new Intent(getApplicationContext(), GetRss.class);
+        startActivity((mudaIntent));
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +106,15 @@ public class TelaLogin extends AppCompatActivity {
             public void onClick(View view) {
                 UsuarioDao usuarioDao = new UsuarioDao(TelaLogin.this);
                 Usuario usuario = usuarioDao.buscarUsuario(email.getValue());
-                usuarioDao.UsuarioAutenticar(usuario.getEmail(),usuario.getSenha());
+                usuarioDao.usuarioAutenticar(usuario.getEmail(),usuario.getSenha());
                 if (email.getValue().equals(usuario.getEmail())&& senha.getValue().equals(usuario.getSenha())){
+                    //create o access data
+                    AccessDTO dto = new AccessDTO();
+                    dto.setToken(String.valueOf(usuario.hashCode()));
+                    dto.setName(usuario.getNome());
+                    dto.setCode(usuario.getCodigo());
+                    dto.setSenha(usuario.getSenha());
+
                     SharedPreferences.Editor editor = getSharedPreferences("authenticatedUser",MODE_PRIVATE).edit();
                     editor.putBoolean("logado",true);
                     editor.putInt("codigo",usuario.getCodigo());
@@ -107,10 +122,11 @@ public class TelaLogin extends AppCompatActivity {
                     editor.putString("email",usuario.getEmail());
                     editor.putString("senha",usuario.getSenha());
                     editor.apply();
-                    Intent mudaIntent = new Intent(getApplicationContext(), GetRss.class);
-                    startActivity((mudaIntent));
-                    Log.d("RAULT","FOI AUTENTICADO");
-                    finish();
+                    //save access data
+                    AccessManager tm = new AccessManager(TelaLogin.this);
+                    tm.store(dto);
+                    //forward to news list
+                    gotoNewsList();
                 }else {
                     Toast.makeText(TelaLogin.this,"Email ou senha inválidos!",Toast.LENGTH_LONG).show();
                 }
@@ -131,18 +147,22 @@ public class TelaLogin extends AppCompatActivity {
         });
         layoutBotoes.addView(botaoCriarConta);
 
-
-
-
-
 //        SETANTO TODAS AS VIEWS TANTO DOS INPUTS QUANTO DOS BOTOES
 
         linearLayout.addView(imagemL);
         linearLayout.addView(layoutInputs);
         linearLayout.addView(layoutBotoes);
 
-
-
-
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AccessManager tm = new AccessManager(this);
+        // verificar se existe um token
+        // caso exista um token encaminhar para
+        // Lista de Notícias
+        if (tm.checkToken()){
+            gotoNewsList();
+        }
     }
 }

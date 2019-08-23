@@ -5,6 +5,7 @@ import android.app.Activity;
 import java.io.Serializable;
 
 public class Noticia implements Serializable {
+    private int codigo;
     private String titulo;
     private String link;
     private String data;
@@ -76,10 +77,19 @@ public class Noticia implements Serializable {
         return conteudo;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
         return "Noticia{" +
-                "titulo='" + titulo + '\'' +
+                "codigo=" + codigo +
+                ", titulo='" + titulo + '\'' +
                 ", link='" + link + '\'' +
                 ", data='" + data + '\'' +
                 ", descricao='" + descricao + '\'' +

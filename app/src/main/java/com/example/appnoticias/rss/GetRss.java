@@ -15,6 +15,7 @@ import android.widget.*;
 import android.os.Bundle;
 import com.example.appnoticias.Componentes.GetNoticeAdapter;
 import com.example.appnoticias.Componentes.NoticiaUnica;
+import com.example.appnoticias.Database.NoticiaDao;
 import com.example.appnoticias.Model.Noticia;
 import com.example.appnoticias.R;
 import com.example.appnoticias.Telas.NoticiaComple;
@@ -32,7 +33,10 @@ import java.util.List;
 public class GetRss extends SideBar {
 
     private ArrayList<String> links = new ArrayList<>();
+    private NoticiaDao dao = new NoticiaDao(GetRss.this);
+
     private List<Noticia> noticias = new ArrayList<>();
+
 
     private LinearLayout layoutPrincipal;
     private ListView listView;
@@ -66,7 +70,6 @@ public class GetRss extends SideBar {
         });
 
         new ProcessaChamadaEmBackground().execute();
-
 //        setContentView(layoutPrincipal);
 
 
@@ -83,7 +86,7 @@ public class GetRss extends SideBar {
 
     public class ProcessaChamadaEmBackground extends AsyncTask<Integer, Void, String> {
 
-        ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
+        private ProgressDialog progressDialog = new ProgressDialog(GetRss.this);
 
         public boolean isOnline() {
             try {
@@ -115,6 +118,8 @@ public class GetRss extends SideBar {
 
         @Override
         protected String doInBackground(Integer... integers) {
+
+            NoticiaDao dao = new NoticiaDao(GetRss.this);
 
             String html = null;
             if (isOnline()) {
@@ -174,11 +179,18 @@ public class GetRss extends SideBar {
                             }
                         } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.getName().equalsIgnoreCase("item")) {
                             insideItem = false;
-                            noticias.add(noticia);
+//                            noticias.add(noticia);
+                            dao.salvar(
+                                    noticia.getTitulo(),
+                                    noticia.getLink(),
+                                    noticia.getData(),
+                                    noticia.getDescricao(),
+                                    noticia.getConteudo());
                         }
 
                         eventType = xmlPullParser.next();
                     }
+
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -203,6 +215,7 @@ public class GetRss extends SideBar {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
+            noticias = dao.listar();
             GetNoticeAdapter notice = new GetNoticeAdapter(GetRss.this,noticias);
 
 
