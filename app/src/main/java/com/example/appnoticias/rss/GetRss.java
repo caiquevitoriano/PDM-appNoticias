@@ -120,7 +120,7 @@ public class GetRss extends SideBar {
             if (isOnline()) {
 
                 try {
-                    URL url = new URL("http://uirauna.net/feed/");
+                    URL url = new URL("http://radarpb.com.br/feed/");
 
                     XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                     factory.setNamespaceAware(false);
