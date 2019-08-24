@@ -33,7 +33,7 @@ import java.util.List;
 public class GetRss extends SideBar {
 
     private ArrayList<String> links = new ArrayList<>();
-    private NoticiaDao dao = new NoticiaDao(GetRss.this);
+    private NoticiaDao dao;
 
     private List<Noticia> noticias = new ArrayList<>();
 
@@ -43,6 +43,8 @@ public class GetRss extends SideBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        dao = new NoticiaDao(GetRss.this);
 
         layoutPrincipal = new LinearLayout(this);
         layoutPrincipal.setLayoutParams(new LinearLayout.LayoutParams(
