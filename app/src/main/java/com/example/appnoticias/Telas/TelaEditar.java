@@ -126,7 +126,7 @@ public class TelaEditar extends SideBar {
         layoutBotoes.addView(botaoCadastro);
 
 
-        Botao botaoCancelar = new Botao(this, "Excluir usuario", Color.rgb(255,69,0));
+        Botao botaoCancelar = new Botao(this, "Cancelar", Color.rgb(255,69,0));
         botaoCancelar.setColorTextButton();
         botaoCancelar.setOnClickAction(new View.OnClickListener() {
             @Override
